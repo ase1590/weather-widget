@@ -6,7 +6,7 @@ import sys
 
 fname = 'NatLoop.gif'
 
-os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location
+os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. verify if this works in windows
 def pullgif():
     weathermap='http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
     r = requests.get(weathermap)
