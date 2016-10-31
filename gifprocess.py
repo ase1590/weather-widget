@@ -29,4 +29,5 @@ def check_exist():
         pullgif()
         print("didnt exist, pulling")
 
-check_exist()
+def explodegif():
+    
