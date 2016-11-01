@@ -11,7 +11,7 @@ def docrop():
     crop.save("out%s.png" % i)
     print("out%s.png" % i)
 
-for tt in range(3):
+for tt in range(7):
     im.seek(im.tell()+1)
     docrop()
     tt +=1
