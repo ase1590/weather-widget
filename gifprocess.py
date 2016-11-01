@@ -1,4 +1,4 @@
-import requests  #gonna need this one from pip
+import requests  #going to need this one from pip
 import os
 import time
 import sys
