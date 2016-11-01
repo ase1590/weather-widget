@@ -1,8 +1,7 @@
-from PIL import Image
+from PIL import Image #windows may need PIL
 import time
 import os
 im = Image.open('NatLoop.gif')
-# NatLoop.gif can be gotten from http://radar.weather.gov/Conus/Loop/NatLoop.gif
 def docrop():
     crop = im.crop((335,345,565,560))
     i=0
