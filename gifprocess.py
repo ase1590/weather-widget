@@ -5,7 +5,11 @@ import sys
 
 fname = 'NatLoop.gif'
 
-os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. verify if this works in windows
+if os.name == 'nt':
+	pass #figure out something different here for Windows. 
+else:
+	os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. only works for linux
+    
 def pullgif():
     weathermap='http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
     r = requests.get(weathermap)
@@ -28,5 +32,5 @@ def check_exist():
         pullgif()
         print("didnt exist, pulling")
 
-def explodegif():
+check_exist()
     
