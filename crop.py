@@ -1,4 +1,5 @@
 from PIL import Image #Pip install
+from PIL import ImageSequence
 import time
 import os
 
@@ -8,12 +9,9 @@ im = Image.open('NatLoop.gif')
 def gifcrop(ax,ay,bx,by): #defines two points, a and b. 
     crop = im.crop((ax,ay,ax+bx,ay+by))
     i=0
-    try:
-        while 1:
-            crop.save('out'+str(i)+'.png')
-            i += 1
-            im.seek(im.tell()+1) #this is broken
-    except EOFError:
-        print('done')
+    for frame in ImageSequence.Iterator(im):
+        i+=1
+        crop.save('out'+str(i)+'.png')
+        print('saved %s' % i)
 #use gifcrop(x,y,width,height)
 gifcrop(717,285,300,200)

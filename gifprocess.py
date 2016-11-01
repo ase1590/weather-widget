@@ -6,10 +6,10 @@ import sys
 fname = 'NatLoop.gif'
 
 if os.name == 'nt':
-	pass #figure out something different here for Windows. 
+    pass #figure out something different here for Windows. 
 else:
-	os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. only works for linux
-    
+    os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. only works for linux
+
 def pullgif():
     weathermap='http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
     r = requests.get(weathermap)
@@ -33,4 +33,3 @@ def check_exist():
         print("didnt exist, pulling")
 
 check_exist()
-    
