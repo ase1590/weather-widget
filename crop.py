@@ -7,9 +7,9 @@ im = Image.open('NatLoop.gif')
 #gif_dimension = 0,0,100,100
 
 def gifcrop(ax,ay,bx,by): #defines two points, a and b. 
-    crop = im.crop((ax,ay,ax+bx,ay+by))
     i=0
     for frame in ImageSequence.Iterator(im):
+        crop = im.crop((ax,ay,ax+bx,ay+by))
         i+=1
         crop.save('out'+str(i)+'.png')
         print('saved %s' % i)
