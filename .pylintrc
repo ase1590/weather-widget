@@ -1,0 +1,3 @@
+[MASTER]
+extension-pkg-whitelist=PyQt5
+disable=blacklisted-name,invalid-name,missing-docstring
