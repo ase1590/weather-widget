@@ -1,17 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-"""
-ZetCode PyQt5 tutorial 
-
-In this example, we display the x and y 
-coordinates of a mouse pointer in a label widget.
-
-Author: Jan Bodnar
-Website: zetcode.com 
-Last edited: August 2017
-"""
-
 import sys
 from PyQt5.QtCore import Qt, QByteArray
 from PyQt5.QtWidgets import QWidget, QApplication, QGridLayout, QLabel, QSizePolicy, QVBoxLayout
