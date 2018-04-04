@@ -33,10 +33,20 @@ class ImagePlayer(QWidget):
 
         # Add the QMovie object to the label
         self.movie.setCacheMode(QMovie.CacheAll)
-        self.movie.setSpeed(100)
+        self.movie.setSpeed(50) #set relative playback speed percentage
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
         self.movie.loopCount()
+
+    def mousePressEvent(self, event):
+        self.offset = event.pos()
+
+    def mouseMoveEvent(self, event):
+        x=event.globalX()
+        y=event.globalY()
+        x_w = self.offset.x()
+        y_w = self.offset.y()
+        self.move(x-x_w, y-y_w)
 
 
 if __name__ == "__main__":
