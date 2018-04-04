@@ -15,6 +15,8 @@ class ImagePlayer(QWidget):
         self.movie = QMovie(filename, QByteArray(), self)
 
         size = self.movie.scaledSize()
+        #self.setWindowFlags(Qt.FramelessWindowHint)
+        #self.setAttribute(Qt.WA_TranslucentBackground)
         self.setGeometry(200, 200, size.width(), size.height())
         self.setWindowTitle(title)
 
@@ -38,8 +40,8 @@ class ImagePlayer(QWidget):
 
 
 if __name__ == "__main__":
-    gif = "regionmap.gif"
+    gif = "region.gif"
     app = QApplication(sys.argv)
-    player = ImagePlayer(gif, "was")
+    player = ImagePlayer(gif, "WeatherApp")
     player.show()
     sys.exit(app.exec_())
