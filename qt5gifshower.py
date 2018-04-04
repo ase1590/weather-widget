@@ -39,14 +39,15 @@ class ImagePlayer(QWidget):
         self.movie.loopCount()
 
     def mousePressEvent(self, event):
-        self.offset = event.pos()
+        if event.button() == Qt.LeftButton:
+            self.dragposition = event.globalPos() - self.frameGeometry().topLeft()
+            event.accept()
 
     def mouseMoveEvent(self, event):
-        x=event.globalX()
-        y=event.globalY()
-        x_w = self.offset.x()
-        y_w = self.offset.y()
-        self.move(x-x_w, y-y_w)
+        if event.buttons() == Qt.LeftButton:
+            self.move(event.globalPos()- self.dragposition)
+            event.accept()
+
 
 
 if __name__ == "__main__":
