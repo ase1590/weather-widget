@@ -3,20 +3,24 @@
 
 import sys
 from PyQt5.QtCore import Qt, QByteArray
-from PyQt5.QtWidgets import QWidget, QApplication, QGridLayout, QLabel, QSizePolicy, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
-import sys
 
 class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
         QWidget.__init__(self, parent)
 
+        # set up exit action
+        quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
+        self.addAction(quitAction)
+        self.setContextMenuPolicy(Qt.ActionsContextMenu)
+
         # Load the file into a QMovie
         self.movie = QMovie(filename, QByteArray(), self)
 
         size = self.movie.scaledSize()
-        #self.setWindowFlags(Qt.FramelessWindowHint)
-        #self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setGeometry(200, 200, size.width(), size.height())
         self.setWindowTitle(title)
 
