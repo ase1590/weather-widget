@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PyQt5.QtCore import Qt, QByteArray
+from PyQt5.QtCore import Qt, QByteArray, QSettings
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
 
@@ -10,6 +10,8 @@ class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
         QWidget.__init__(self, parent)
 
+        #set save position
+        #self.settings = QtCore.qse
         # set up exit action
         quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
         self.addAction(quitAction)
