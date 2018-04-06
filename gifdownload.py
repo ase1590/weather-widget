@@ -1,7 +1,6 @@
-import requests  #going to need this one from pip
 import os
 import time
-import sys
+import requests  #going to need this one from pip
 
 fname = 'NatLoop.gif'
 
@@ -11,7 +10,7 @@ fname = 'NatLoop.gif'
 #    os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. only works for linux
 
 def pullgif():
-    weathermap='http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
+    weathermap = 'http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
     r = requests.get(weathermap)
     open(fname, 'wb').write(r.content)
 
@@ -26,10 +25,14 @@ def updategif():
 
 def check_exist():
     if os.path.isfile(fname) == True:
-        updategif()
         print("it existed, checking update")
+        updategif()
+        
     else:
+        print("didnt exist, now pulling")
         pullgif()
-        print("didnt exist, pulling")
+        print("pull done")
+        
 
-check_exist()
+if __name__ == "__main__":
+    check_exist()
