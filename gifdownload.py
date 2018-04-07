@@ -13,6 +13,7 @@ def pullgif():
     weathermap = 'http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
     r = requests.get(weathermap)
     open(fname, 'wb').write(r.content)
+    return True
 
 def updategif():
     u = os.path.getmtime(fname)
@@ -22,6 +23,7 @@ def updategif():
         print("updated gif")
     else:
         print("nothing to update")
+        return False
 
 def check_exist():
     if os.path.isfile(fname) == True:
