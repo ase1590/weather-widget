@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PyQt5.QtCore import Qt, QByteArray, QSettings
+from PyQt5.QtCore import Qt, QByteArray, QSettings, QTime, QTimer
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
+import gifdownload, gifcropper
 
 class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
         QWidget.__init__(self, parent)
 
         #set save position
-        #self.settings = QtCore.qse
+        # TODO
+        
         # set up exit action
         quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
         self.addAction(quitAction)
@@ -44,6 +46,7 @@ class ImagePlayer(QWidget):
         self.movie.start()
         self.movie.loopCount()
 
+        # set windows movable via mouse
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.dragposition = event.globalPos() - self.frameGeometry().topLeft()
@@ -53,6 +56,16 @@ class ImagePlayer(QWidget):
         if event.buttons() == Qt.LeftButton:
             self.move(event.globalPos()- self.dragposition)
             event.accept()
+
+        #define timer
+        timer = QTimer(self)
+        timer.timeout.connect(self, update)
+        timer.start(10000)
+
+        # define weather update
+    def weatherWorker(self):
+        if gifdownload.check_exist() == True:
+            gifcropper.gifcrop(1361, 500, 510, 270)
 
 
 
