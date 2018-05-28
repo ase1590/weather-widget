@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import gifdownload, gifcropper
 from PyQt5.QtCore import Qt, QByteArray, QSettings
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
@@ -57,7 +58,13 @@ class ImagePlayer(QWidget):
 
 
 if __name__ == "__main__":
+    #grab our initial maps
+    gifdownload.check_exist()
+    gifcropper.gifcrop(1361, 500, 510, 270)    
+    
+    #set gif name to grab
     gif = "region.gif"
+    
     app = QApplication(sys.argv)
     player = ImagePlayer(gif, "WeatherApp")
     player.show()
