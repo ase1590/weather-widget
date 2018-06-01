@@ -62,15 +62,16 @@ class ImagePlayer(QWidget):
             event.accept()
 
     def GetMap(self):
-        #gifdownload.check_exist()
-        #gifcropper.gifcrop(1361, 500, 510, 270)
-        self.movie.setMovie(self.movie)
-        self.update()
-        print("refresh done")
+        gifdownload.check_exist()
+        gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
+        ### setmovie and update() don't reload the gif
+        #self.movie.setMovie(self.movie)
+        #self.update()
+        #print("refresh done")
 if __name__ == "__main__":
     #grab our initial maps before we start
     gifdownload.check_exist()
-    #gifcropper.gifcrop(1361, 500, 510, 270)    
+    gifcropper.gifcrop(1361, 500, 510, 270)    
     
     #set gif name to grab
     gif = "region.gif"
