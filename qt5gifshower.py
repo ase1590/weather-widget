@@ -3,7 +3,7 @@
 
 import sys
 import gifdownload, gifcropper
-from PyQt5.QtCore import Qt, QByteArray, QSettings
+from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
 
@@ -29,6 +29,8 @@ class ImagePlayer(QWidget):
 
         self.movie_screen = QLabel()
         # Make label fit the gif
+        self.movie_screen.setMinimumWidth(300)
+        self.movie_screen.setMinimumHeight(200)
         self.movie_screen.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.movie_screen.setAlignment(Qt.AlignCenter)
 
@@ -45,6 +47,10 @@ class ImagePlayer(QWidget):
         self.movie.start()
         self.movie.loopCount()
 
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.GetMap)
+        self.timer.start(5000) #milliseconds. 1000 is 1 second
+
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.dragposition = event.globalPos() - self.frameGeometry().topLeft()
@@ -55,12 +61,16 @@ class ImagePlayer(QWidget):
             self.move(event.globalPos()- self.dragposition)
             event.accept()
 
-
-
+    def GetMap(self):
+        #gifdownload.check_exist()
+        #gifcropper.gifcrop(1361, 500, 510, 270)
+        self.movie.setMovie(self.movie)
+        self.update()
+        print("refresh done")
 if __name__ == "__main__":
-    #grab our initial maps
+    #grab our initial maps before we start
     gifdownload.check_exist()
-    gifcropper.gifcrop(1361, 500, 510, 270)    
+    #gifcropper.gifcrop(1361, 500, 510, 270)    
     
     #set gif name to grab
     gif = "region.gif"
