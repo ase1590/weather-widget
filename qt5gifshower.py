@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
 
+
 class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
         QWidget.__init__(self, parent)
@@ -29,8 +30,8 @@ class ImagePlayer(QWidget):
 
         self.movie_screen = QLabel()
         # Make label fit the gif
-        self.movie_screen.setMinimumWidth(300)
-        self.movie_screen.setMinimumHeight(200)
+        #self.movie_screen.setMinimumWidth(300)
+        #self.movie_screen.setMinimumHeight(200)
         self.movie_screen.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.movie_screen.setAlignment(Qt.AlignCenter)
 
@@ -64,10 +65,10 @@ class ImagePlayer(QWidget):
     def GetMap(self):
         gifdownload.check_exist()
         gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
-        ### setmovie and update() don't reload the gif
-        #self.movie.setMovie(self.movie)
-        #self.update()
-        #print("refresh done")
+        self.movie = QMovie(gif, QByteArray(), self)
+        self.movie_screen.setMovie(self.movie)
+        self.movie.start()
+        print("refresh done")
 if __name__ == "__main__":
     #grab our initial maps before we start
     gifdownload.check_exist()
