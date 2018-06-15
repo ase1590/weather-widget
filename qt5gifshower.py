@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie
 
+r = gifdownload.grabber('http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif')
+
 
 class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
@@ -63,7 +65,7 @@ class ImagePlayer(QWidget):
             event.accept()
 
     def GetMap(self):
-        gifdownload.check_exist()
+        r.downloadCheck('NatLoop.gif')
         gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
         self.movie = QMovie(gif, QByteArray(), self)
         self.movie_screen.setMovie(self.movie)
@@ -71,7 +73,7 @@ class ImagePlayer(QWidget):
         print("refresh done")
 if __name__ == "__main__":
     #grab our initial maps before we start
-    gifdownload.check_exist()
+    r.downloadCheck('NatLoop.gif')
     gifcropper.gifcrop(1361, 500, 510, 270)    
     
     #set gif name to grab

@@ -1,38 +1,67 @@
 import os
 import time
-import requests  #going to need this one from pip
+import requests
 
-fname = 'NatLoop.gif'
+class grabber:
+    """
+    provides tools for grabbing images
+    usage: grabber('url')
+    """
+    def __init__(self, url_name):
+        self.url_name = url_name
 
-#if os.name == 'nt':
-#    pass #figure out something different here for Windows. 
-#else:
-#    os.chdir(os.path.dirname(sys.argv[0])) #sets working directory to script location. only works for linux
+    def downloadCheck(self,out_name):
+        """
+        downloads a file, then checks to see if it exists.
+        If it does, waits 15 minutes before grabbing a new one.
+        usage: downloadCheck("filename.xxx")
+        """
 
-def pullgif():
-    weathermap = 'http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif'
-    r = requests.get(weathermap)
-    open(fname, 'wb').write(r.content)
+        def downloader():
+            try:
+                print("downloading, please wait")
+                r = requests.get(self.url_name)
+                if r.ok:
+                    open(out_name, 'wb').write(r.content)
+                else:
+                    r.raise_for_status()
 
-def updategif():
-    u = os.path.getmtime(fname)
-    agediff = 900   #age difference of file in seconds
-    if time.time() > u + agediff:
-        pullgif()
-        print("updated gif")
-    else:
-        print("nothing to update")
+            except requests.ConnectionError:
+                print("could not fetch gif, check connection")
+                # print("error",sys.exc_info()[0])
 
-def check_exist():
-    if os.path.isfile(fname) == True:
-        print("it existed, checking update")
-        updategif()
-        
-    else:
-        print("didnt exist, now pulling")
-        pullgif()
-        print("pull done")
-        
+            except requests.HTTPError:
+                print("Error getting url data")
+                print(r)
+            except:
+                raise
 
-if __name__ == "__main__":
-    check_exist()
+        if os.path.isfile(out_name) == True:
+            print("checking update")
+            u = os.path.getmtime(out_name)
+            agediff = 900
+            if time.time() > u + agediff:
+                downloader()
+                print("updated gif")
+            else:
+                print("nothing to update")
+        else:
+            print("downloading initial file, please wait")
+            r = requests.get(self.url_name)
+            if r.ok:
+                open(out_name, 'wb').write(r.content)
+            else:
+                r.raise_for_status()
+
+    def SimpleDownload(self,out_name):
+        "SimpleDownload('output.xxxx'): downloads a file"
+        print("downloading...")
+        r = requests.get(self.url_name)
+        if r.ok:
+            open(out_name, 'wb').write(r.content)
+            print("download complete")
+        else:
+            r.raise_for_status()
+
+
+#r = GifGrabber('http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif')
