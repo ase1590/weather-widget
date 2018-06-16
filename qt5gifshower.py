@@ -53,7 +53,7 @@ class ImagePlayer(QWidget):
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.GetMap)
-        self.timer.start(5000) #milliseconds. 1000 is 1 second
+        self.timer.start(901000) #milliseconds. 1000 is 1 second
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -81,6 +81,8 @@ if __name__ == "__main__":
     gif = "region.gif"
     
     app = QApplication(sys.argv)
+
+    #load in tray icon class and run
     mytrayicon = trayicon.SystemTrayIcon(QIcon("TrayIcon.png"))
     mytrayicon.show()
 
