@@ -26,8 +26,8 @@ class ImagePlayer(QWidget):
         self.movie = QMovie(filename, QByteArray(), self)
 
         size = self.movie.scaledSize()
-        #self.setWindowFlags(Qt.FramelessWindowHint)
-        #self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setGeometry(200, 200, size.width(), size.height())
         self.setWindowTitle(title)
 
