@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import gifdownload, gifcropper
+import gifdownload, gifcropper, trayicon
 from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
-from PyQt5.QtGui import QMovie
+from PyQt5.QtGui import QMovie, QIcon
 
 r = gifdownload.grabber('http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif')
 
@@ -20,6 +20,7 @@ class ImagePlayer(QWidget):
         quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
         self.addAction(quitAction)
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
+
 
         # Load the file into a QMovie
         self.movie = QMovie(filename, QByteArray(), self)
@@ -80,6 +81,9 @@ if __name__ == "__main__":
     gif = "region.gif"
     
     app = QApplication(sys.argv)
+    mytrayicon = trayicon.SystemTrayIcon(QIcon("TrayIcon.png"))
+    mytrayicon.show()
+
     player = ImagePlayer(gif, "WeatherApp")
     player.show()
     sys.exit(app.exec_())
