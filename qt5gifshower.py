@@ -53,7 +53,7 @@ class ImagePlayer(QWidget):
         self.timer.singleShot(1000, self.GetMap)
         self.timer.timeout.connect(self.GetMap)
         self.timer.start(901000) #milliseconds. 1000 is 1 second
-        
+
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.dragposition = event.globalPos() - self.frameGeometry().topLeft()
@@ -72,10 +72,10 @@ class ImagePlayer(QWidget):
         self.movie.start()
         print("refresh done")
 if __name__ == "__main__":
-    
+
     # set gif name to grab
     gif = "region.gif"
-    
+
     app = QApplication(sys.argv)
 
     # load in tray icon class and run
@@ -86,3 +86,4 @@ if __name__ == "__main__":
     player = ImagePlayer('loading.png', "WeatherWidget") #show an initial loading image
     player.show()
     sys.exit(app.exec_())
+
