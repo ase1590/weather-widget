@@ -14,8 +14,6 @@ class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
         QWidget.__init__(self, parent)
 
-        #set save position
-        #self.settings = QtCore.qse
         # set up exit action
         quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
         self.addAction(quitAction)
@@ -52,9 +50,10 @@ class ImagePlayer(QWidget):
         self.movie.loopCount()
 
         self.timer = QTimer(self)
+        self.timer.singleShot(1000, self.GetMap)
         self.timer.timeout.connect(self.GetMap)
         self.timer.start(901000) #milliseconds. 1000 is 1 second
-
+        
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.dragposition = event.globalPos() - self.frameGeometry().topLeft()
@@ -73,19 +72,17 @@ class ImagePlayer(QWidget):
         self.movie.start()
         print("refresh done")
 if __name__ == "__main__":
-    #grab our initial maps before we start
-    r.downloadCheck('NatLoop.gif')
-    gifcropper.gifcrop(1361, 500, 510, 270)    
     
-    #set gif name to grab
+    # set gif name to grab
     gif = "region.gif"
     
     app = QApplication(sys.argv)
 
-    #load in tray icon class and run
+    # load in tray icon class and run
     mytrayicon = trayicon.SystemTrayIcon(QIcon("TrayIcon.png"))
     mytrayicon.show()
 
-    player = ImagePlayer(gif, "WeatherApp")
+    # show the radar man
+    player = ImagePlayer('loading.png', "WeatherWidget") #show an initial loading image
     player.show()
     sys.exit(app.exec_())
