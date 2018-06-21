@@ -26,7 +26,7 @@ class ImagePlayer(QWidget):
         size = self.movie.scaledSize()
         self.setWindowFlags(Qt.FramelessWindowHint| Qt.WindowStaysOnBottomHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setGeometry(200, 200, size.width(), size.height())
+        self.setGeometry(1110, 10, size.width(), size.height())
         self.setWindowTitle(title)
 
         self.movie_screen = QLabel()

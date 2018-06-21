@@ -23,6 +23,7 @@ class grabber:
                 r = requests.get(self.url_name)
                 if r.ok:
                     open(out_name, 'wb').write(r.content)
+                    print("downloaded at %s" % time.strftime("%H:%M"))
                 else:
                     r.raise_for_status()
 
@@ -42,7 +43,7 @@ class grabber:
             agediff = 900
             if time.time() > u + agediff:
                 downloader()
-                print("updated gif")
+                print("updated gif at %s" % time.strftime("%H:%M"))
             else:
                 print("nothing to update")
         else:
@@ -50,6 +51,7 @@ class grabber:
             r = requests.get(self.url_name)
             if r.ok:
                 open(out_name, 'wb').write(r.content)
+                print("initial file got at %s" % time.strftime("%H:%M"))
             else:
                 r.raise_for_status()
 
@@ -59,7 +61,7 @@ class grabber:
         r = requests.get(self.url_name)
         if r.ok:
             open(out_name, 'wb').write(r.content)
-            print("download complete")
+            print("downloaded at %s" % time.strftime("%H:%M"))
         else:
             r.raise_for_status()
 
