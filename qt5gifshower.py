@@ -50,7 +50,7 @@ class ImagePlayer(QWidget):
         self.movie.loopCount()
 
         self.timer = QTimer(self)
-        self.timer.singleShot(1000, self.GetMap)
+        self.timer.singleShot(2000, self.GetMap)
         self.timer.timeout.connect(self.GetMap)
         self.timer.start(901000) #milliseconds. 1000 is 1 second
 
@@ -71,6 +71,15 @@ class ImagePlayer(QWidget):
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
         print("refresh done")
+
+    def simpleGetMap(self):
+        r.SimpleDownload('NatLoop.gif')
+        gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
+        self.movie = QMovie(gif, QByteArray(), self)
+        self.movie_screen.setMovie(self.movie)
+        self.movie.start()
+        print("refresh done")
+
 if __name__ == "__main__":
 
     # set gif name to grab
@@ -82,8 +91,10 @@ if __name__ == "__main__":
     mytrayicon = trayicon.SystemTrayIcon(QIcon("TrayIcon.png"))
     mytrayicon.show()
 
-    # show the radar man
+    # show the radar map
     player = ImagePlayer('loading.png', "WeatherWidget") #show an initial loading image
+    mytrayicon.menu.addAction("Refresh", player.simpleGetMap) #add manual refresh action
+
     player.show()
     sys.exit(app.exec_())
 
