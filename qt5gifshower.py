@@ -44,7 +44,7 @@ class ImagePlayer(QWidget):
 
         # Add the QMovie object to the label
         self.movie.setCacheMode(QMovie.CacheAll)
-        self.movie.setSpeed(50) #set relative playback speed percentage
+        self.movie.setSpeed(30) #set relative playback speed percentage
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
         self.movie.loopCount()
@@ -69,6 +69,7 @@ class ImagePlayer(QWidget):
         gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
         self.movie = QMovie(gif, QByteArray(), self)
         self.movie_screen.setMovie(self.movie)
+        self.movie.setSpeed(30) #set relative playback speed percentage
         self.movie.start()
         print("refresh done")
 
