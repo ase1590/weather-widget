@@ -108,9 +108,18 @@ if __name__ == "__main__":
 
     # show the radar map
     player = ImagePlayer('loading.png', "WeatherWidget") #show an initial loading image
+
+    playspeed = mytrayicon.menu.addMenu("Playspeed")
+    playspeed.addAction("200%", lambda: player.movie.setSpeed(200))
+    playspeed.addAction("100%", lambda: player.movie.setSpeed(100))
+    playspeed.addAction("50%", lambda: player.movie.setSpeed(50))
+    playspeed.addAction("30% (default)", lambda: player.movie.setSpeed(30))
+    playspeed.addAction("25%", lambda: player.movie.setSpeed(25))
+    playspeed.addAction("10%", lambda: player.movie.setSpeed(10))
+
     mytrayicon.menu.addAction("Refresh", player.simpleGetMap) #add manual refresh action
     mytrayicon.menu.addAction("Exit", player.close)
-
+    
     player.show()
     sys.exit(app.exec_())
 
