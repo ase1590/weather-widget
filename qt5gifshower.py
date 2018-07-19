@@ -2,12 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from configparser import SafeConfigParser
 import gifdownload, gifcropper, trayicon
 from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie, QIcon
 
 r = gifdownload.grabber('http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif')
+
+parser = SafeConfigParser()
+parser.read('settings.ini')
+
 
 
 class ImagePlayer(QWidget):
@@ -26,7 +31,7 @@ class ImagePlayer(QWidget):
         size = self.movie.scaledSize()
         self.setWindowFlags(Qt.FramelessWindowHint| Qt.WindowStaysOnBottomHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setGeometry(1110, 10, size.width(), size.height())
+        self.setGeometry(parser.getint('screen_position', 'x'), parser.getint('screen_position', 'y'), size.width(), size.height())
         self.setWindowTitle(title)
 
         self.movie_screen = QLabel()
