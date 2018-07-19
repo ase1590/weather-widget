@@ -19,7 +19,7 @@ class ImagePlayer(QWidget):
         self.settings = QSettings('settings.ini', QSettings.IniFormat)
 
         # set up exit action
-        quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
+        quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = self.close)
         self.addAction(quitAction)
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
 
@@ -60,10 +60,11 @@ class ImagePlayer(QWidget):
         self.timer.timeout.connect(self.GetMap)
         self.timer.start(901000) #milliseconds. 1000 is 1 second
 
-    def closeEvent(self,e):
+    #override closing the program. use self.close to call this
+    def closeEvent(self,event):
         #self.settings.setValue("size", self.size())
         self.settings.setValue("pos", self.pos())
-        e.accept()
+        event.accept()
 
 
     def mousePressEvent(self, event):
@@ -108,6 +109,7 @@ if __name__ == "__main__":
     # show the radar map
     player = ImagePlayer('loading.png', "WeatherWidget") #show an initial loading image
     mytrayicon.menu.addAction("Refresh", player.simpleGetMap) #add manual refresh action
+    mytrayicon.menu.addAction("Exit", player.close)
 
     player.show()
     sys.exit(app.exec_())
