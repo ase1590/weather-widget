@@ -2,22 +2,21 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from configparser import SafeConfigParser
 import gifdownload, gifcropper, trayicon
-from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer
+from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer, QSettings, QPoint, QSize
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
 from PyQt5.QtGui import QMovie, QIcon
 
 r = gifdownload.grabber('http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif')
 
-parser = SafeConfigParser()
-parser.read('settings.ini')
-
 
 
 class ImagePlayer(QWidget):
     def __init__(self, filename, title, parent=None):
-        QWidget.__init__(self, parent)
+        super(ImagePlayer, self).__init__()
+
+        #set screen save
+        self.settings = QSettings('settings.ini', QSettings.IniFormat)
 
         # set up exit action
         quitAction = QAction("E&xit", self, shortcut = "Ctrl+Q", triggered = QApplication.instance().quit)
@@ -28,10 +27,12 @@ class ImagePlayer(QWidget):
         # Load the file into a QMovie
         self.movie = QMovie(filename, QByteArray(), self)
 
-        size = self.movie.scaledSize()
+        #size = self.movie.scaledSize()
         self.setWindowFlags(Qt.FramelessWindowHint| Qt.WindowStaysOnBottomHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setGeometry(parser.getint('screen_position', 'x'), parser.getint('screen_position', 'y'), size.width(), size.height())
+        #self.resize(self.settings.value("size", QSize(size.width, size.height)))
+        self.move(self.settings.value("pos", QPoint(50, 50)))
+        #self.setGeometry(parser.getint('screen_position', 'x'), parser.getint('screen_position', 'y'), size.width(), size.height())
         self.setWindowTitle(title)
 
         self.movie_screen = QLabel()
@@ -59,6 +60,12 @@ class ImagePlayer(QWidget):
         self.timer.timeout.connect(self.GetMap)
         self.timer.start(901000) #milliseconds. 1000 is 1 second
 
+    def closeEvent(self,e):
+        #self.settings.setValue("size", self.size())
+        self.settings.setValue("pos", self.pos())
+        e.accept()
+
+
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.dragposition = event.globalPos() - self.frameGeometry().topLeft()
@@ -85,6 +92,7 @@ class ImagePlayer(QWidget):
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
         print("refresh done")
+
 
 if __name__ == "__main__":
 
