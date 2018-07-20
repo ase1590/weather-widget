@@ -3,10 +3,10 @@
 # no support for alaska and hawaii
 us_state = {
     'Alabama': (2000,854, 510, 270),
-    'Arizona': (615, 740),
+    'Arizona': (615, 740, 510, 340),
     'Arkansas': (663, 677, 450, 390),
     'California': (147,425,667,594),
-    'Colorado': (,),
+    'Colorado': (959, 493, 510, 270),
     'Connecticut': (,),
     'Delaware': (,),
     'Florida': (,),
