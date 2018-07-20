@@ -4,7 +4,7 @@
 import sys
 import gifdownload, gifcropper, trayicon
 from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer, QSettings, QPoint, QSize
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction, QSizeGrip
 from PyQt5.QtGui import QMovie, QIcon
 
 r = gifdownload.grabber('http://radar.weather.gov/ridge/Conus/Loop/NatLoop.gif')
@@ -37,14 +37,16 @@ class ImagePlayer(QWidget):
 
         self.movie_screen = QLabel()
         # Make label fit the gif
-        #self.movie_screen.setMinimumWidth(300)
-        #self.movie_screen.setMinimumHeight(200)
         self.movie_screen.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.movie_screen.setAlignment(Qt.AlignCenter)
+        self.movie_screen.setScaledContents(True) #allow image to scale with label
+        self.setMinimumSize(QSize(200,150)) #restrict it to a min size
 
         # Create the layout
         main_layout = QVBoxLayout()
+        sizegrip = QSizeGrip(self) #enable size grip for scaling borderless window
         main_layout.addWidget(self.movie_screen)
+        main_layout.addWidget(sizegrip, 0, Qt.AlignBottom | Qt.AlignRight)
 
         self.setLayout(main_layout)
 
