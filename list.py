@@ -1,22 +1,21 @@
 # use us_state['statename'][0-9]
 # format is state: (x,y)
+# no support for alaska and hawaii
 us_state = {
-    'Alabama': (,),
-    'Alaska': (,),
-    'Arizona': (,),
-    'Arkansas': (,),
-    'California': (,),
+    'Alabama': (2000,854, 510, 270),
+    'Arizona': (615, 740),
+    'Arkansas': (663, 677, 450, 390),
+    'California': (147,425,667,594),
     'Colorado': (,),
     'Connecticut': (,),
     'Delaware': (,),
     'Florida': (,),
     'Georgia': (,),
-    'Hawaii': (,),
     'Idaho': (,),
     'Illinois': (,),
     'Indiana': (,),
     'Iowa': (,),
-    'Kansas': (1361, 500),
+    'Kansas': (1361, 500, 510, 270),
     'Kentucky': (,),
     'Louisiana': (,),
     'Maine': (,),
