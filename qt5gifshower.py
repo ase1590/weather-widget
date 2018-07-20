@@ -52,7 +52,7 @@ class ImagePlayer(QWidget):
 
         # Add the QMovie object to the label
         self.movie.setCacheMode(QMovie.CacheAll)
-        self.movie.setSpeed(30) #set relative playback speed percentage
+        self.movie.setSpeed(self.settings.value("playspeed", 30, type=int)) #set relative playback speed percentage
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
         self.movie.loopCount()
@@ -84,7 +84,7 @@ class ImagePlayer(QWidget):
         gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
         self.movie = QMovie(gif, QByteArray(), self)
         self.movie_screen.setMovie(self.movie)
-        self.movie.setSpeed(30) #set relative playback speed percentage
+        self.movie.setSpeed(self.settings.value("playspeed", 30, type=int)) #set relative playback speed percentage
         self.movie.start()
         print("refresh done")
 
@@ -93,8 +93,13 @@ class ImagePlayer(QWidget):
         gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
         self.movie = QMovie(gif, QByteArray(), self)
         self.movie_screen.setMovie(self.movie)
+        self.movie.setSpeed(self.settings.value("playspeed", 30, type=int))
         self.movie.start()
         print("refresh done")
+
+    def speedsetter(self, speed):
+        self.movie.setSpeed(speed)
+        self.settings.setValue("playspeed", speed)
 
 
 if __name__ == "__main__":
@@ -112,12 +117,12 @@ if __name__ == "__main__":
     player = ImagePlayer('loading.png', "WeatherWidget") #show an initial loading image
 
     playspeed = mytrayicon.menu.addMenu("Playspeed")
-    playspeed.addAction("200%", lambda: player.movie.setSpeed(200))
-    playspeed.addAction("100%", lambda: player.movie.setSpeed(100))
-    playspeed.addAction("50%", lambda: player.movie.setSpeed(50))
-    playspeed.addAction("30% (default)", lambda: player.movie.setSpeed(30))
-    playspeed.addAction("25%", lambda: player.movie.setSpeed(25))
-    playspeed.addAction("10%", lambda: player.movie.setSpeed(10))
+    playspeed.addAction("200%", lambda: player.speedsetter(200))
+    playspeed.addAction("100%", lambda: player.speedsetter(100))
+    playspeed.addAction("50%", lambda: player.speedsetter(50))
+    playspeed.addAction("30% (default)", lambda: player.speedsetter(30))
+    playspeed.addAction("25%", lambda: player.speedsetter(25))
+    playspeed.addAction("10%", lambda: player.speedsetter(10))
 
     mytrayicon.menu.addAction("Refresh", player.simpleGetMap) #add manual refresh action
     mytrayicon.menu.addAction("Exit", player.close)
