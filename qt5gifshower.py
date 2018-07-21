@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import gifdownload, gifcropper, trayicon
+import gifdownload, gifcropper, trayicon, statelist
 from PyQt5.QtCore import Qt, QByteArray, QSettings, QTimer, QSettings, QPoint, QSize
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy, QVBoxLayout, QAction, QSizeGrip
 from PyQt5.QtGui import QMovie, QIcon
@@ -90,7 +90,10 @@ class ImagePlayer(QWidget):
 
     def simpleGetMap(self):
         r.SimpleDownload('NatLoop.gif')
-        gifcropper.gifcrop(1361, 500, 510, 270) #TODO: only crop if gif updates
+        gifcropper.gifcrop(self.settings.value("x", 1361, type=int), 
+                           self.settings.value("y", 500, type=int), 
+                           self.settings.value("width", 510, type=int), 
+                           self.settings.value("height", 270, type=int)) #TODO: only crop if gif updates
         self.movie = QMovie(gif, QByteArray(), self)
         self.movie_screen.setMovie(self.movie)
         self.movie.setSpeed(self.settings.value("playspeed", 30, type=int))
@@ -100,6 +103,12 @@ class ImagePlayer(QWidget):
     def speedsetter(self, speed):
         self.movie.setSpeed(speed)
         self.settings.setValue("playspeed", speed)
+
+    def mapsetter(self, x, y, w, h):
+        self.settings.setValue("x", x)
+        self.settings.setValue("y", y)
+        self.settings.setValue("width", w)
+        self.settings.setValue("height", h)
 
 
 if __name__ == "__main__":
@@ -123,6 +132,11 @@ if __name__ == "__main__":
     playspeed.addAction("30% (default)", lambda: player.speedsetter(30))
     playspeed.addAction("25%", lambda: player.speedsetter(25))
     playspeed.addAction("10%", lambda: player.speedsetter(10))
+
+    statecombo = statelist.us_state
+    stateselector = mytrayicon.menu.addMenu("States")
+    for key, value in statecombo.items():
+        stateselector.addAction("%s" %key, lambda: print(key,value[0], value[1], value[2], value[3])) #lambda breaks iteration
 
     mytrayicon.menu.addAction("Refresh", player.simpleGetMap) #add manual refresh action
     mytrayicon.menu.addAction("Exit", player.close)
