@@ -1,6 +1,6 @@
 # use us_state['statename'][0-9]
 # format is state: (x,y)
-# no support for alaska and hawaii
+# no support for alaska and Hawaii
 us_state = {
     'Alabama': (2000,854, 510, 270),
     'Arizona': (615, 740, 510, 340),
