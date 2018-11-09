@@ -51,3 +51,7 @@ us_state = {
     'Wisconsin': (1900, 186, 371, 270),
     'Wyoming': (874, 279, 469, 268),
 }
+if __name__ == "__main__":
+    for key, value in us_state.items():
+        #print("%s" %key, value[0])
+        print('stateselector.addAction("%s", lambda: player.mapsetter(%s,%s, %s, %s))' %(key, value[0], value[1], value[2], value[3]))
