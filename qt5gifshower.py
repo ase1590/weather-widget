@@ -41,6 +41,7 @@ class ImagePlayer(QWidget):
         self.movie_screen.setAlignment(Qt.AlignCenter)
         self.movie_screen.setScaledContents(True) #allow image to scale with label
         self.setMinimumSize(QSize(200, 150)) #restrict it to a min size
+        self.movie_screen.setStyleSheet(open('style.css').read())
 
         # Create the layout
         main_layout = QVBoxLayout()
