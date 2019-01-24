@@ -1,12 +1,7 @@
 Feature Roadmap:
 
-save screen position of app
-make radar scalable
-allow settable playback speed
-allow rounded corners
 find a way to check remote URL image age vs local
 set/save specific state
 hide taskbar entry if possible
 generate logs from program
-show local temperature in tray tooltip
 
