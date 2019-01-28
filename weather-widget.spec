@@ -26,7 +26,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True , icon='TrayIcon.png')
+          console=False , icon='TrayIcon.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
