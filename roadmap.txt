@@ -1,8 +1,0 @@
-Feature Roadmap:
-
-find a way to check remote URL image age vs local
-thread the refreshing of the gif
-set/save specific state
-hide taskbar entry if possible
-generate logs from program
-

@@ -1,3 +1,1 @@
-requests
-Pillow
-PyQt5
+pyside2
