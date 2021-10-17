@@ -22,7 +22,7 @@ ApplicationWindow {
     SystemTrayIcon {
         visible: true
         tooltip: "WeatherWidget"
-        icon.source: "TrayIcon.png"
+        icon.source: "qrc:/images/TrayIcon.png"
 
         menu: Menu {
             MenuItem {
