@@ -18,7 +18,7 @@ if __name__ == "__main__":
     app.setOrganizationName("AllspiceInc")
     app.setOrganizationDomain("AllspiceInc")
     engine = QQmlApplicationEngine()
-    engine.load(os.path.join(os.path.dirname(__file__), "main.qml"))
+    engine.load(QtCore.QUrl("main.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)
